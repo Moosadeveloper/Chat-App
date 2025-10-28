@@ -26,8 +26,10 @@ export const useMessages = (currentUserId, selectedUserId) => {
       return;
     }
 
-    // Create a chat room ID by combining both user IDs in alphabetical order
-    const chatRoomId = [currentUserId, selectedUserId].sort().join('-');
+    // Use a fixed room id for public chat, else combine UIDs
+    const chatRoomId = selectedUserId === 'PUBLIC'
+      ? 'public'
+      : [currentUserId, selectedUserId].sort().join('-');
     
     const q = query(
       collection(db, 'messages'),
@@ -35,18 +37,25 @@ export const useMessages = (currentUserId, selectedUserId) => {
       orderBy('timestamp', 'asc')
     );
 
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const messagesData = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      
-      setMessages(messagesData);
-      setLoading(false);
-      
-      // Auto-scroll to bottom when new messages arrive
-      setTimeout(scrollToBottom, 100);
-    });
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const messagesData = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+
+        setMessages(messagesData);
+        setLoading(false);
+
+        // Auto-scroll to bottom when new messages arrive
+        setTimeout(scrollToBottom, 100);
+      },
+      (error) => {
+        console.error('useMessages: Error in snapshot listener:', error);
+        setLoading(false);
+      }
+    );
 
     return () => unsubscribe();
   }, [currentUserId, selectedUserId]);
@@ -55,7 +64,9 @@ export const useMessages = (currentUserId, selectedUserId) => {
     if (!text.trim() || !currentUserId || !selectedUserId) return;
 
     try {
-      const chatRoomId = [currentUserId, selectedUserId].sort().join('-');
+      const chatRoomId = selectedUserId === 'PUBLIC'
+        ? 'public'
+        : [currentUserId, selectedUserId].sort().join('-');
       
       // Get current user info for the message
       const currentUser = auth.currentUser;

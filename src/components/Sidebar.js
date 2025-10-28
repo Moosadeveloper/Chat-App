@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Sidebar = ({ users, loading, onContactSelect, selectedUserId, currentUser }) => {
+
   if (loading) {
     return (
       <div className="flex flex-col h-full">
@@ -21,9 +22,37 @@ const Sidebar = ({ users, loading, onContactSelect, selectedUserId, currentUser 
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="p-3 md:p-4 border-b border-gray-200 bg-gradient-to-r from-blue-500 to-blue-600">
-        <h1 className="text-lg md:text-xl font-bold text-white">Chatify</h1>
-        <p className="text-blue-100 text-xs md:text-sm">Your conversations</p>
+      <div className="p-3 md:p-4 border-b border-gray-200 bg-gradient-to-r from-indigo-600 to-blue-500">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 rounded-lg bg-white/20 backdrop-blur flex items-center justify-center text-white font-bold">MB</div>
+            <h1 className="text-lg md:text-xl font-bold text-white">MB CloudChat</h1>
+          </div>
+          <span className="hidden md:inline-block text-xs text-blue-100">Secure • Real‑time</span>
+        </div>
+      </div>
+
+      {/* Public Chat quick access */}
+      <div className="p-3 md:p-4 border-b border-gray-200">
+        <button
+          onClick={() => onContactSelect({ uid: 'PUBLIC', displayName: 'Public Chat', email: 'all@chat', photoURL: '' })}
+          className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 shadow-sm ${
+            selectedUserId === 'PUBLIC' ? 'bg-indigo-50 border border-indigo-200' : 'bg-white hover:bg-gray-50 border border-gray-100'
+          }`}
+        >
+          <div className="flex items-center space-x-3">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-semibold shadow">
+              PC
+            </div>
+            <div className="text-left">
+              <div className="text-sm font-semibold text-gray-900">Public Chat</div>
+              <div className="text-xs text-gray-600">Chat with everyone online</div>
+            </div>
+          </div>
+          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
 
       {/* Search Bar */}
@@ -50,12 +79,17 @@ const Sidebar = ({ users, loading, onContactSelect, selectedUserId, currentUser 
         </div>
       </div>
 
+      {/* Debug Info removed for production */}
+
       {/* Users List */}
       <div className="flex-1 overflow-y-auto">
         {users.length === 0 ? (
           <div className="p-3 md:p-4 text-center text-gray-500">
             <p className="text-sm">No other users found</p>
             <p className="text-xs mt-1">Invite friends to start chatting!</p>
+            <p className="text-xs mt-2 text-red-500">
+              Debug: Check console for user data. Make sure both users are signed in.
+            </p>
           </div>
         ) : (
           users.map((user) => (

@@ -8,10 +8,26 @@ const ProfileDropdown = ({ currentUser }) => {
 
   const handleLogout = async () => {
     try {
+      console.log('Logging out user...');
       await logout();
+      setIsOpen(false); // Close dropdown after logout
     } catch (error) {
       console.error('Error logging out:', error);
     }
+  };
+
+  const handleProfile = () => {
+    console.log('Profile clicked');
+    // You can add profile functionality here
+    alert('Profile feature coming soon!');
+    setIsOpen(false);
+  };
+
+  const handleSettings = () => {
+    console.log('Settings clicked');
+    // You can add settings functionality here
+    alert('Settings feature coming soon!');
+    setIsOpen(false);
   };
 
   useEffect(() => {
@@ -32,12 +48,12 @@ const ProfileDropdown = ({ currentUser }) => {
       {/* Profile Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+        className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
       >
         <img
-          src={currentUser?.photoURL || '/default-avatar.png'}
+          src={currentUser?.photoURL || `https://ui-avatars.com/api/?name=${currentUser?.displayName}&background=3B82F6&color=fff`}
           alt="Profile"
-          className="w-8 h-8 rounded-full object-cover"
+          className="w-8 h-8 rounded-full object-cover border-2 border-gray-200"
           onError={(e) => {
             e.target.src = `https://ui-avatars.com/api/?name=${currentUser?.displayName}&background=3B82F6&color=fff`;
           }}
@@ -49,7 +65,7 @@ const ProfileDropdown = ({ currentUser }) => {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+        <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 transform transition-all duration-200 ease-in-out">
           {/* User Info */}
           <div className="px-4 py-3 border-b border-gray-100">
             <p className="text-sm font-medium text-gray-900">{currentUser?.displayName}</p>
@@ -58,7 +74,10 @@ const ProfileDropdown = ({ currentUser }) => {
 
           {/* Menu Items */}
           <div className="py-1">
-            <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
+            <button 
+              onClick={handleProfile}
+              className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+            >
               <div className="flex items-center space-x-2">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -67,7 +86,10 @@ const ProfileDropdown = ({ currentUser }) => {
               </div>
             </button>
             
-            <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
+            <button 
+              onClick={handleSettings}
+              className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+            >
               <div className="flex items-center space-x-2">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />

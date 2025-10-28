@@ -17,7 +17,7 @@ function ChatApp() {
   
   const { users, loading: usersLoading } = useUsers(currentUser?.uid);
   const { messages, loading: messagesLoading, sendMessage, messagesEndRef } = useMessages(
-    currentUser?.uid, 
+    currentUser?.uid,
     selectedUserId
   );
 
@@ -42,7 +42,9 @@ function ChatApp() {
     return <LoginPage />;
   }
 
-  const selectedUser = users.find(user => user.uid === selectedUserId);
+  const selectedUser = selectedUserId === 'PUBLIC'
+    ? { uid: 'PUBLIC', displayName: 'Public Chat', email: 'all@chat', photoURL: '' }
+    : users.find(user => user.uid === selectedUserId);
 
   const handleContactSelect = (user) => {
     setSelectedUserId(user.uid);
@@ -157,9 +159,6 @@ function ChatApp() {
           </div>
         )}
       </div>
-
-      {/* Profile Dropdown */}
-      <ProfileDropdown currentUser={currentUser} />
     </div>
   );
 }

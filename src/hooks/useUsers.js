@@ -7,18 +7,33 @@ export const useUsers = (currentUserId) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log('useUsers: Setting up user listener for currentUserId:', currentUserId);
+    
     const q = query(collection(db, 'users'), orderBy('displayName', 'asc'));
     
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const usersData = snapshot.docs
-        .map(doc => ({ id: doc.id, ...doc.data() }))
-        .filter(user => user.uid !== currentUserId);
+      console.log('useUsers: Received snapshot with', snapshot.docs.length, 'users');
       
-      setUsers(usersData);
+      const allUsers = snapshot.docs.map(doc => {
+        const userData = { id: doc.id, ...doc.data() };
+        console.log('useUsers: User data:', userData);
+        return userData;
+      });
+      
+      const filteredUsers = allUsers.filter(user => user.uid !== currentUserId);
+      console.log('useUsers: Filtered users (excluding current user):', filteredUsers);
+      
+      setUsers(filteredUsers);
+      setLoading(false);
+    }, (error) => {
+      console.error('useUsers: Error in snapshot listener:', error);
       setLoading(false);
     });
 
-    return () => unsubscribe();
+    return () => {
+      console.log('useUsers: Cleaning up user listener');
+      unsubscribe();
+    };
   }, [currentUserId]);
 
   return { users, loading };

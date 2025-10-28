@@ -41,17 +41,17 @@ const LoginPage = () => {
       <div className="max-w-md w-full">
         {/* Logo and Title */}
         <div className="text-center mb-6 md:mb-8">
-          <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-indigo-600 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
             <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Chatify</h1>
-          <p className="text-sm md:text-base text-gray-600">Connect and chat with people around the world</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">MB CloudChat</h1>
+          <p className="text-sm md:text-base text-gray-600">Fast, secure, real‑time messaging</p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
+        <div className="bg-white/90 backdrop-blur rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100">
           <div className="text-center mb-4 md:mb-6">
             <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-2">Welcome Back</h2>
             <p className="text-sm md:text-base text-gray-600">Sign in to start chatting</p>
@@ -66,7 +66,7 @@ const LoginPage = () => {
           <button
             onClick={handleGoogleSignIn}
             disabled={loading}
-            className="w-full flex items-center justify-center px-4 md:px-6 py-3 border border-gray-300 rounded-lg shadow-sm bg-white text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base"
+            className="w-full flex items-center justify-center px-4 md:px-6 py-3 border border-gray-200 rounded-xl shadow-sm bg-white text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base"
           >
             {loading ? (
               <div className="flex items-center">
@@ -96,19 +96,19 @@ const LoginPage = () => {
         {/* Features */}
         <div className="mt-6 md:mt-8 grid grid-cols-1 gap-3 md:gap-4 text-center">
           <div className="flex items-center justify-center space-x-2 text-gray-600">
-            <svg className="w-4 h-4 md:w-5 md:h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 md:w-5 md:h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span className="text-xs md:text-sm">Real-time messaging</span>
           </div>
           <div className="flex items-center justify-center space-x-2 text-gray-600">
-            <svg className="w-4 h-4 md:w-5 md:h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 md:w-5 md:h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span className="text-xs md:text-sm">Secure and private</span>
           </div>
           <div className="flex items-center justify-center space-x-2 text-gray-600">
-            <svg className="w-4 h-4 md:w-5 md:h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 md:w-5 md:h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span className="text-xs md:text-sm">Cross-platform</span>
