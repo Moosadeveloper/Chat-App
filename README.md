@@ -291,7 +291,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### 📸 Screenshots
 
-![Logo]([https://raw.githubusercontent.com/AbdulRehman2008/Recipe-Finder/refs/heads/main/public/Capture%201.PNG](https://raw.githubusercontent.com/Moosadeveloper/Chat-App/refs/heads/main/public/chat-app.PNG))
+![Logo](https://raw.githubusercontent.com/AbdulRehman2008/Recipe-Finder/refs/heads/main/public/Capture%201.PNG](https://raw.githubusercontent.com/Moosadeveloper/Chat-App/refs/heads/main/public/chat-app.PNG)](https://raw.githubusercontent.com/Moosadeveloper/Chat-App/refs/heads/main/public/chat-app.PNG)
 
 
 
