@@ -21,6 +21,13 @@ function ChatApp() {
     selectedUserId
   );
 
+  // Default to Public Chat after login
+  useEffect(() => {
+    if (currentUser && !selectedUserId) {
+      setSelectedUserId('PUBLIC');
+    }
+  }, [currentUser, selectedUserId]);
+
   // Handle window resize to show sidebar on desktop
   useEffect(() => {
     const handleResize = () => {
