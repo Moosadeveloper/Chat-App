@@ -39,6 +39,7 @@ export const useMessages = (currentUserId, selectedUserId) => {
 
     const unsubscribe = onSnapshot(
       q,
+      { includeMetadataChanges: true },
       (snapshot) => {
         const messagesData = snapshot.docs.map(doc => ({
           id: doc.id,
@@ -67,7 +68,26 @@ export const useMessages = (currentUserId, selectedUserId) => {
       const chatRoomId = selectedUserId === 'PUBLIC'
         ? 'public'
         : [currentUserId, selectedUserId].sort().join('-');
-      
+      const clientGeneratedId = `${currentUserId}-${Date.now()}`;
+      const now = new Date();
+
+      // Optimistic UI update
+      const optimisticMessage = {
+        id: clientGeneratedId,
+        text: text.trim(),
+        senderId: currentUserId,
+        receiverId: selectedUserId,
+        chatRoomId,
+        senderName: auth.currentUser?.displayName || 'You',
+        senderEmail: auth.currentUser?.email || '',
+        senderPhotoURL: auth.currentUser?.photoURL || '',
+        timestamp: now,
+        createdAt: now.toISOString(),
+        _optimistic: true
+      };
+      setMessages((prev) => [...prev, optimisticMessage]);
+      setTimeout(scrollToBottom, 50);
+
       // Get current user info for the message
       const currentUser = auth.currentUser;
       
@@ -80,7 +100,8 @@ export const useMessages = (currentUserId, selectedUserId) => {
         senderEmail: currentUser?.email || '',
         senderPhotoURL: currentUser?.photoURL || '',
         timestamp: serverTimestamp(),
-        createdAt: new Date().toISOString()
+        createdAt: now.toISOString(),
+        clientGeneratedId
       });
       
       console.log('Message sent successfully:', {
